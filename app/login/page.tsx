@@ -9,8 +9,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "../utils/auth";
+import { SubmitButton } from "../components/SubmitButton";
+import { requireUser } from "../utils/hooks";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+    const session = await requireUser();
+    if (session?.user) {
+        redirect("/dashboard");
+    }
+
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center px-4">
@@ -39,7 +47,7 @@ export default function LoginPage() {
                                     required
                                 />
                             </div>
-                            <Button>Submit</Button>
+                            <SubmitButton />
                         </form>
                     </CardContent>
                 </Card>
