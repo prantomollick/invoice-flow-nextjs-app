@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -8,13 +7,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signIn } from "../utils/auth";
-import { SubmitButton } from "../components/SubmitButton";
-import { requireUser } from "../utils/hooks";
 import { redirect } from "next/navigation";
+import { SubmitButton } from "../components/SubmitButton";
+import { auth, signIn } from "../utils/auth";
 
 export default async function LoginPage() {
-    const session = await requireUser();
+    const session = await auth();
+
     if (session?.user) {
         redirect("/dashboard");
     }
@@ -24,7 +23,9 @@ export default async function LoginPage() {
             <div className="h-screen w-screen flex items-center justify-center px-4">
                 <Card className="w-full max-w-sm">
                     <CardHeader>
-                        <CardTitle className="text-2xl">Login</CardTitle>
+                        <CardTitle className="text-3xl font-bold">
+                            Login
+                        </CardTitle>
                         <CardDescription>
                             Enter your credentials to login into your account
                         </CardDescription>
